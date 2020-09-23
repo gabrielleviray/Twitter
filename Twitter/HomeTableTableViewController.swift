@@ -21,8 +21,15 @@ class HomeTableTableViewController: UITableViewController {
         loadTweets()
         
         refresh_control.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
-        tableView.refreshControl = refresh_control
+        self.tableView.refreshControl = refresh_control
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 150
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweets()
     }
 
     // Method that calls API, gets triggered automatically when we load the scree and when the user pulls to refresh
@@ -32,7 +39,7 @@ class HomeTableTableViewController: UITableViewController {
         let tweets_url = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParams = ["count": numOfTweets]
         
-        TwitterAPICaller.client?.getDictionariesRequest(url: tweets_url, parameters: myParams, success: { (tweets: [NSDictionary]) in
+        TwitterAPICaller.client?.getDictionariesRequest(url: tweets_url, parameters: myParams as [String: Any], success: { (tweets: [NSDictionary]) in
             
             self.tweetArray.removeAll() // emptying list
             for tweet in tweets {
@@ -53,7 +60,7 @@ class HomeTableTableViewController: UITableViewController {
         numOfTweets = numOfTweets + 20
         let myParams = ["count": numOfTweets]
         
-        TwitterAPICaller.client?.getDictionariesRequest(url: tweets_url, parameters: myParams, success: { (tweets: [NSDictionary]) in
+        TwitterAPICaller.client?.getDictionariesRequest(url: tweets_url, parameters: myParams as [String: Any], success: { (tweets: [NSDictionary]) in
             
             self.tweetArray.removeAll() // emptying list
             for tweet in tweets {
@@ -61,7 +68,7 @@ class HomeTableTableViewController: UITableViewController {
             }
             
             self.tableView.reloadData() // reload data with content
-//            self.refresh_control.endRefreshing()
+//                        self.refresh_control.endRefreshing()
             
         }, failure: { (Error) in
             print("Could not retreive tweets! oh no!!")
@@ -96,6 +103,9 @@ class HomeTableTableViewController: UITableViewController {
         if let image_data = data {
             cell.profileImageView.image = UIImage(data: image_data)
         }
+        
+        cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
         
         return cell
     }
