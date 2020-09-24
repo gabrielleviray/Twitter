@@ -25,7 +25,6 @@ Here's a walkthrough of implemented user stories:
 
 <img src='https://recordit.co/RydKWJcIaz/gif/notify' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-📝 `NOTE` Paste this template at the top of your existing `README.md` file from part 1 of this assignment. (🚫 Remove this paragraph after after checking off completed user stories)
 
 # Twitter - Part II
 
@@ -51,4 +50,4 @@ The following **bonus** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://g.recordit.co/KQd0AKYtrk.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://g.recordit.co/UCZ8jRsHyU.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
